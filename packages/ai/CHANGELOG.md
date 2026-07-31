@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added the Baseten provider (OpenAI-compatible, `BASETEN_API_KEY`), with its model catalog sourced from `models.dev`.
+
 ### Fixed
 
 - Updated GPT-5.6 Terra and Luna pricing across OpenAI and passthrough model catalogs.

@@ -92,6 +92,7 @@ pi
 | Hugging Face | `HF_TOKEN` | `huggingface` |
 | Fireworks | `FIREWORKS_API_KEY` | `fireworks` |
 | Together AI | `TOGETHER_API_KEY` | `together` |
+| Baseten | `BASETEN_API_KEY` | `baseten` |
 | Kimi For Coding | `KIMI_API_KEY` | `kimi-coding` |
 | MiniMax | `MINIMAX_API_KEY` | `minimax` |
 | MiniMax (China) | `MINIMAX_CN_API_KEY` | `minimax-cn` |
@@ -119,6 +120,7 @@ Store credentials in `~/.pi/agent/auth.json`:
   "opencode": { "type": "api_key", "key": "..." },
   "opencode-go": { "type": "api_key", "key": "..." },
   "together": { "type": "api_key", "key": "..." },
+  "baseten": { "type": "api_key", "key": "..." },
   "qwen-token-plan":  { "type": "api_key", "key": "sk-sp-..." },
   "qwen-token-plan-cn": { "type": "api_key", "key": "sk-sp-..." },
   "xiaomi": { "type": "api_key", "key": "..." },
