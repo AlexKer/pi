@@ -151,6 +151,7 @@ const KIMI_STATIC_HEADERS = {
 } as const;
 
 const TOGETHER_BASE_URL = "https://api.together.ai/v1";
+const BASETEN_BASE_URL = "https://inference.baseten.co/v1";
 const TOGETHER_BASE_COMPAT: OpenAICompletionsCompat = {
 	supportsStore: false,
 	supportsDeveloperRole: false,
@@ -1643,6 +1644,36 @@ async function loadModelsDevData(): Promise<Model<any>[]> {
 					maxTokens: m.limit?.output || 4096,
 				});
 				recordModelsDevReasoningOptions("together", modelId, m);
+			}
+		}
+
+		// Process Baseten models
+		const basetenProvider = data.baseten ?? data["baseten-ai"];
+		if (basetenProvider?.models) {
+			for (const [modelId, model] of Object.entries(basetenProvider.models)) {
+				const m = model as ModelsDevModel & { status?: string };
+				if (m.tool_call !== true) continue;
+				if (m.status === "deprecated") continue;
+
+				const reasoning = m.reasoning === true;
+				models.push({
+					id: modelId,
+					name: m.name || modelId,
+					api: "openai-completions",
+					provider: "baseten",
+					baseUrl: BASETEN_BASE_URL,
+					reasoning,
+					input: m.modalities?.input?.includes("image") ? ["text", "image"] : ["text"],
+					cost: {
+						input: m.cost?.input || 0,
+						output: m.cost?.output || 0,
+						cacheRead: m.cost?.cache_read || 0,
+						cacheWrite: m.cost?.cache_write || 0,
+					},
+					contextWindow: m.limit?.context || 4096,
+					maxTokens: m.limit?.output || 4096,
+				});
+				recordModelsDevReasoningOptions("baseten", modelId, m);
 			}
 		}
 
